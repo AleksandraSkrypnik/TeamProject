@@ -56,75 +56,71 @@ public class SavingAccountTest {
     @Test
     public void testConstructorInvalidMinBalance() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new SavingAccount(2_000, -500, 10_000, 5);
+            new SavingAccount(2_000, -1_000, 10_000, 5);
         });
     }
 
     @Test
     public void testConstructorInitialBalanceBelowMinBalance() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new SavingAccount(400, 1_000, 10_000, 5);
+            new SavingAccount(900, 1_000, 10_000, 5);
         });
     }
 
     @Test
     public void testConstructorInitialBalanceAboveMaxBalance() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new SavingAccount(16_000, 1_000, 10_000, 5);
+            new SavingAccount(11_000, 1_000, 10_000, 5);
         });
     }
 
     @Test
     public void testConstructorMinBalanceGreaterThanMaxBalance() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new SavingAccount(2_000, 16_000, 10_000, 5);
+            new SavingAccount(2_000, 11_000, 10_000, 5);
         });
     }
 
     @Test
     public void testPayValidAmount() {
         SavingAccount account = new SavingAccount(2_000, 1_000, 10_000, 5);
-        boolean result = account.pay(400);
-        int expected = 600;
+        account.pay(400);
+        int expected = 1_600;
         int actual = account.getBalance();
         assertEquals(expected, actual);
-        assertEquals(true, result);
     }
 
     @Test
     public void testPayInvalidAmount() {
         SavingAccount account = new SavingAccount(2_000, 1_000, 10_000, 5);
-        boolean result = account.pay(2_300);
+        account.pay(1_100);
         int expected = 2_000;
         int actual = account.getBalance();
         assertEquals(expected, actual);
-        assertEquals(false, result);
     }
 
     @Test
     public void testAddValidAmount() {
         SavingAccount account = new SavingAccount(2_000, 1_000, 10_000, 5);
-        boolean result = account.add(400);
-        int expected = 2_400;
+        account.add(4_000);
+        int expected = 6_000;
         int actual = account.getBalance();
         assertEquals(expected, actual);
-        assertEquals(true, result);
     }
 
     @Test
     public void testAddInvalidAmount() {
         SavingAccount account = new SavingAccount(2_000, 1_000, 10_000, 5);
-        boolean result = account.add(-600);
+        account.add(9_000);
         int expected = 2_000;
         int actual = account.getBalance();
         assertEquals(expected, actual);
-        assertEquals(false, result);
     }
 
     @Test
     public void testYearChange() {
         SavingAccount account = new SavingAccount(2_000, 1_000, 10_000, 5);
-        int expected = 100; // 2_000 * 5 / 100
+        int expected = 100; // 2000 * 5 / 100
         int actual = account.yearChange();
         assertEquals(expected, actual);
     }
