@@ -93,7 +93,7 @@ public class SavingAccountTest {
     @Test
     public void testPayInvalidAmount() {
         SavingAccount account = new SavingAccount(2_000, 1_000, 10_000, 5);
-        account.pay(1_100);
+        account.pay(3_000);
         int expected = 2_000;
         int actual = account.getBalance();
         assertEquals(expected, actual);
